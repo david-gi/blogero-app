@@ -20,11 +20,6 @@ type Startup() =
         services.AddMvc() |> ignore
         services.AddServerSideBlazor() |> ignore
         services
-            .AddAuthorization()
-            .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie()
-                .Services
-            .AddBoleroRemoting<BookService>()
             .AddBoleroHost()
 #if DEBUG
             .AddHotReload(templateDir = __SOURCE_DIRECTORY__ + "/../blogero-app.Client")
@@ -37,10 +32,8 @@ type Startup() =
             app.UseWebAssemblyDebugging()
 
         app
-            .UseAuthentication()
             .UseStaticFiles()
             .UseRouting()
-            .UseAuthorization()
             .UseBlazorFrameworkFiles()
             .UseEndpoints(fun endpoints ->
 #if DEBUG

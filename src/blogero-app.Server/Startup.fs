@@ -9,7 +9,6 @@ open Microsoft.Extensions.Hosting
 open Bolero
 open Bolero.Remoting.Server
 open Bolero.Server
-open blogero_app
 open Bolero.Templating.Server
 
 type Startup() =
@@ -21,6 +20,7 @@ type Startup() =
         services.AddServerSideBlazor() |> ignore
         services
             .AddBoleroHost()
+            .AddBoleroRemoting<PostService>()
 #if DEBUG
             .AddHotReload(templateDir = __SOURCE_DIRECTORY__ + "/../blogero-app.Client")
 #endif
@@ -32,8 +32,10 @@ type Startup() =
             app.UseWebAssemblyDebugging()
 
         app
+            .UseAuthentication()
             .UseStaticFiles()
             .UseRouting()
+            .UseAuthorization()
             .UseBlazorFrameworkFiles()
             .UseEndpoints(fun endpoints ->
 #if DEBUG

@@ -101,7 +101,25 @@
   </div>
 </template>
 
+
 <template id="ImageInput">
+  <script>
+      document.addEventListener("DOMContentLoaded", () => {
+      function handleFInput(ev) {
+        document.getElementById("imgUploadWarn").classList.add("hidden")
+        const file = this.files[0]
+        if (file.size > 5242880) {
+          document.getElementById("imgUploadWarn").classList.remove("hidden")
+          return
+        }
+        const reader = new FileReader()
+        const res = reader.readAsBinaryString(file)
+        document.getElementById("imgUploadText").setAttribute("value", res)
+      }
+      const fInput = document.getElementById("imgUpload")
+      fInput.addEventListener("change", handleFInput, false)
+    })
+  </script>
   <label
     for="imgUpload"
     tabindex="0"
@@ -116,8 +134,9 @@
     type="file"
     accept="image/jpeg, image/jpg"
     class="w-0 h-0 "
-    bind="${Image}"
   >
+  <input id="imgUploadText" type="hidden" bind="${Image}">
+  <span id="imgUploadWarn" class="hidden text-red-600">File over size limit (5MB)</span>
 </template>
 
 <template id="Button">

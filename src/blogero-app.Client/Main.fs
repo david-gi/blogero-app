@@ -125,7 +125,7 @@ let update remote message model =
         | Create -> { model with   page = page;  current = Some <| initPost () }, Cmd.none
         | Link _ when model.page = Create -> model, Cmd.none
         | Link x -> { model with page = page; current = lookupPost model x }, Cmd.none
-        | Query x -> { model with page = if model.page = Home || model.page = page then page else model.page }, Cmd.ofMsg <| Search x
+        | Query x -> { model with current = None; page = if model.page = Create then Create else page }, Cmd.ofMsg (Search x)
 
     | GetPosts -> model, Cmd.OfAsync.either remote.getPosts () GotPosts Error
     | GotPosts posts -> { model with posts = posts }, Cmd.none
@@ -216,9 +216,8 @@ let view model dispatch =
             Main()
                 .Side(concat {
                         searchTemplate dispatch
-                        let makeNode = fun x -> postTemplate x true dispatch
                         match getSelectedPosts model with
-                        | xs when xs.Length > 0 -> forEach xs <| makeNode
+                        | xs when xs.Length > 0 -> forEach xs <| fun x -> postTemplate x true dispatch
                         | _ -> Main.NoMatchesContainer().Elt()
                     })
                 .Panel(

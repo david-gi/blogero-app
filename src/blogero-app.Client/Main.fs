@@ -141,12 +141,12 @@ let update remote message model =
         | Content x -> { model with current = Some { model.current.Value with content = x } }, Cmd.none
     | Save post -> model, Cmd.OfAsync.either remote.addPost post (fun () -> Saved post) Error
     | Saved post -> 
-        { model with 
-            current = None; 
+        { model with
+            current = Some post
+            page = Link post.id
             posts = 
-                let postResizeArray = (model.posts |> ResizeArray)
-                postResizeArray.Add post
-                postResizeArray.ToArray ()
+                let postList = post :: (model.posts |> Array.toList)
+                postList |> List.toArray
         }, Cmd.none
 
     | Error err -> { model with error = Some err }, Cmd.none

@@ -2,126 +2,114 @@
   <div class="flex flex-row flex-wrap w-screen h-screen w-app-minimum place-content-center p-2
             bg-gradient-to-t from-violet-700 dark:from-violet-900 from-65% to-blue-600 dark:to-blue-800
             dark:brightness-90">
-  <div class="basis-full sm:basis-1/3 sm:grow max-w-screen-md
+    <div class="basis-full sm:basis-1/3 sm:grow max-w-screen-md
               h-full overflow-y-scroll no-scrollbar pr-2 z-0">
-    <h1 class="text-white pb-2">
-      <span class="font-bold text-xl">Blogero</span>
-      <span class="text-md align-baseline">F# + Wasm + Immutable Blogging</span>
-    </h1>
-    ${Side}
+      <h1 class="text-white pb-2">
+        <span class="font-bold text-xl">Blogero</span>
+        <span class="text-md align-baseline">F# + Wasm + Immutable Blogging</span>
+      </h1>
+      ${Side}
+    </div>
+    ${Panel}
+    <div class="absolute right-0 bottom-0 rounded-tl p-2 bg-violet-700 dark:bg-violet-900">
+      ${Corner}
+    </div>
+    <div class="absolute bottom-0 right-0 left-0 text-center z-40">
+      ${Footer}
+    </div>
   </div>
-  ${Panel}
-  <div class="absolute right-0 bottom-0 rounded-tl p-2 bg-violet-700 dark:bg-violet-900">
-    ${Corner}
-  </div>
-  <div class="absolute bottom-0 right-0 left-0 text-center z-40">
-    ${Footer}
-  </div>
-</div>
 
-<!--Templates-->
+  <!--Templates-->
 
-<template id="PanelContainer">
-  <div class="sm:basis-2/3 z-10
+  <template id="PanelContainer">
+    <div class="sm:basis-2/3 z-10
               absolute top-0 right-0 left-0
               sm:relative sm:right-auto sm:left-auto">
-    <div class="h-screen sm:h-[100%] dark:bg-gray-800 rounded-xl sm:rounded
+      <div class="h-screen sm:h-[100%] dark:bg-gray-800 rounded-xl sm:rounded
                 border-8 border-blue-600 sm:border-0">
-      <div class="flex flex-row-reverse flex-wrap gap-2 clear-both bg-white
+        <div class="flex flex-row-reverse flex-wrap gap-2 clear-both bg-white
                 absolute bottom-0 right-0 p-2 pt-2 pl-2 m-2 sm:m-0 rounded dark:bg-gray-800">
-        ${Tray}
+          ${Tray}
+        </div>
+        <div class="overflow-y-scroll overscroll-none no-scrollbar max-h-full">
+          ${Content}
+        </div>
       </div>
-      <div class="overflow-y-scroll overscroll-none no-scrollbar max-h-full">
+    </div>
+  </template>
+
+  <template id="PostContainer">
+    <div
+      class="bg-white p-8 rounded cursor-pointer mt-2 dark:bg-gray-800/60 dark:text-white"
+      onclick="${Open}"
+    >
+      <h1 class="text-xl font-bold">
+        ${Title}
+      </h1>
+      <div class="text-sm">
+        ${Date}
+      </div>
+      <img
+        class="mt-4"
+        src="${ImageSrc}"
+      >
+      <div class="py-4">
         ${Content}
       </div>
     </div>
-  </div>
-</template>
+  </template>
 
-<template id="PostContainer">
-  <div
-    class="bg-white p-8 rounded cursor-pointer mt-2 dark:bg-gray-800/60 dark:text-white"
-    onclick="${Open}"
-  >
-    <h1 class="text-xl font-bold">
-      ${Title}
-    </h1>
-    <div class="text-sm">
-      ${Date}
+  <template id="FormContainer">
+    <div class="bg-white dark:bg-gray-800 dark:text-white p-8 rounded">
+      <h1 class="font-bold uppercase">
+        New Post
+      </h1>
+      <div class="text-sm opacity-75">${Date}</div>
+      <div class="flex flex-col gap-1 pt-4 mb-8">
+        ${Image}
+        ${Title}
+        ${Content}
+      </div>
     </div>
-    <img
-      class="mt-4"
-      src="${ImageSrc}"
+  </template>
+
+  <template id="LoadingContainer">
+    <div class="bg-white p-8 rounded mt-2 dark:bg-gray-800/60 dark:text-white">
+      <h1 class="text-lg font-bold">
+        Loading...
+      </h1>
+    </div>
+  </template>
+
+  <template id="NoMatchesContainer">
+    <div class="bg-white p-8 rounded mt-2 dark:bg-gray-800/60 dark:text-white">
+      <h1 class="text-lg font-bold">
+        No matches...
+      </h1>
+    </div>
+  </template>
+
+  <template id="NotFoundContainer">
+    <div class="p-8">
+      <img src="icon.png">
+      <h1 class="font-bold text-xl text-gray-800 dark:text-white mt-2">
+        Post not found.
+      </h1>
+    </div>
+  </template>
+
+  <template id="NotificationContainer">
+    <div
+      class="w-screen text-white bg-${Color}-500 p-4"
+      onclick="${Hide}"
     >
-    <div class="py-4">
-      ${Content}
+      ${Text}
     </div>
-  </div>
-</template>
+  </template>
 
-<template id="FormContainer">
-  <div class="bg-white dark:bg-gray-800 dark:text-white p-8 rounded">
-    <h1 class="font-bold uppercase">
-      New Post
-    </h1>
-    <div class="text-sm opacity-75">${Date}</div>
-    <div class="flex flex-col gap-1 pt-4 mb-8">
-      ${Image}
-      ${Title}
-      ${Content}
-    </div>
-  </div>
-</template>
-
-<template id="NoMatchesContainer">
-  <div
-    class="bg-white p-8 rounded mt-2 dark:bg-gray-800/60 dark:text-white"
-  >
-    <h1 class="text-lg font-bold">
-      No matches.
-    </h1>
-  </div>
-</template>
-
-<template id="NotFoundContainer">
-  <div class="p-8">
-    <img src="icon.png">
-    <h1 class="font-bold text-xl text-gray-800 dark:text-white mt-2">
-      Post not found.
-    </h1>
-  </div>
-</template>
-
-<template id="NotificationContainer">
-  <div
-    class="w-screen text-white bg-${Color}-500 p-4"
-    onclick="${Hide}"
-  >
-    ${Text}
-  </div>
-</template>
-
-
-<template id="ImageInput">
-  <script>
-      document.addEventListener("DOMContentLoaded", () => {
-      function handleFInput(ev) {
-        document.getElementById("imgUploadWarn").classList.add("hidden")
-        const file = this.files[0]
-        if (file.size > 5242880) {
-          document.getElementById("imgUploadWarn").classList.remove("hidden")
-          return
-        }
-        const reader = new FileReader()
-        const res = reader.readAsBinaryString(file)
-        document.getElementById("imgUploadText").setAttribute("value", res)
-      }
-      const fInput = document.getElementById("imgUpload")
-      fInput.addEventListener("change", handleFInput, false)
-    })
-  </script>
+<template id="ImgUploadLabel">
   <label
-    for="imgUpload"
+    for="${For}"
     tabindex="0"
     class="border px-4 py-2 rounded w-fit cursor-pointer hover:border-blue-600 
           hover:text-blue-600 active:border-violet-600 
@@ -129,43 +117,35 @@
   >
     Upload Image
   </label>
-  <input
-    id="imgUpload"
-    type="file"
-    accept="image/jpeg, image/jpg"
-    class="w-0 h-0 "
-  >
-  <input id="imgUploadText" type="hidden" bind="${Image}">
-  <span id="imgUploadWarn" class="hidden text-red-600">File over size limit (5MB)</span>
 </template>
 
-<template id="Button">
-  <button
-    class="rounded px-2 sm:px-4 py-1 sm:py-2 text-white font-bold bg-${Color}-600
+  <template id="Button">
+    <button
+      class="rounded px-2 sm:px-4 py-1 sm:py-2 text-white font-bold bg-${Color}-600
           ring-0 ring-inset ring-${Color}-600 hover:text-${Color}-600
           hover:ring-2 hover:bg-${Color}-100 active:opacity-60"
-    onclick="${Click}"
-  >
-    ${Text}
-  </button>
-</template>
+      onclick="${Click}"
+    >
+      ${Text}
+    </button>
+  </template>
 
-<template id="Textbox">
-  <input
-    type="text"
-    class="p-2 border w-full rounded focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:border-violet-700"
-    placeholder="${Placeholder}"
-    bind="${Text}"
-  >
-</template>
+  <template id="Textbox">
+    <input
+      type="text"
+      class="p-2 border w-full rounded focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:border-violet-700"
+      placeholder="${Placeholder}"
+      bind="${Text}"
+    >
+  </template>
 
-<template id="Textarea">
-  <textarea
-    rows="12"
-    class="p-2 border w-full rounded focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:border-violet-700"
-    placeholder="${Placeholder}"
-    bind-onchange="${Text}"
-  ></textarea>
-</template>
+  <template id="Textarea">
+    <textarea
+      rows="12"
+      class="p-2 border w-full rounded focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:border-violet-700"
+      placeholder="${Placeholder}"
+      bind-onchange="${Text}"
+    ></textarea>
+  </template>
 
 </div>

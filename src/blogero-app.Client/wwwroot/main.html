@@ -118,7 +118,8 @@
 
   <template id="NotificationContainer">
     <div
-      class="w-screen text-white bg-${Color}-500 p-4 select-none"
+      class="w-screen text-white bg-${Color}-500 p-4 select-none
+             after:content-['⤫'] after:float-right cursor-pointer"
       onclick="${Hide}"
     >
       ${Text}

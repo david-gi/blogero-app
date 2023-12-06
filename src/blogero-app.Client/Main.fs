@@ -120,16 +120,17 @@ let handleFileUpload (dispatch: Dispatch<Message>) (e: InputFileChangeEventArgs)
         if e.File.Size > maxImageSize then
             dispatch <| Error(Exception $"File over size limit ({mbCount} MBs)")
 
-        if not (e.File.ContentType = "image/jpg" || e.File.ContentType = "image/jpeg") then
+        else if not (e.File.ContentType = "image/jpg" || e.File.ContentType = "image/jpeg") then
             dispatch <| Error(Exception "Only JPEG file format accepted")
 
-        let buffer: byte array = Array.zeroCreate 1024
-        let ms = new MemoryStream(buffer)
-        let fStream = e.File.OpenReadStream(maxImageSize)
-        let! task = fStream.CopyToAsync(ms) |> Async.AwaitTask
-        let res = Convert.ToBase64String <| ms.ToArray()
+        else
+            let buffer: byte array = Array.zeroCreate 1024
+            let ms = new MemoryStream(buffer)
+            let fStream = e.File.OpenReadStream(maxImageSize)
+            fStream.CopyToAsync(ms) |> Async.AwaitTask |> Async.RunSynchronously
 
-        dispatch <| SetProp(Image res)
+            let res = Convert.ToBase64String <| ms.ToArray()
+            dispatch <| SetProp(Image res)
     }
 
 let guidString () = Guid.NewGuid().ToString()

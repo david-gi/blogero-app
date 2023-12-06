@@ -122,7 +122,7 @@ let handleFileUpload (dispatch: Dispatch<Message>) (e: InputFileChangeEventArgs)
 
         if not (e.File.ContentType = "image/jpg" || e.File.ContentType = "image/jpeg") then
             dispatch <| Error(Exception "Only JPEG file format accepted")
-        
+
         let buffer: byte array = Array.zeroCreate 1024
         let ms = new MemoryStream(buffer)
         let fStream = e.File.OpenReadStream(maxImageSize)
@@ -132,8 +132,10 @@ let handleFileUpload (dispatch: Dispatch<Message>) (e: InputFileChangeEventArgs)
         dispatch <| SetProp(Image res)
     }
 
+let guidString () = Guid.NewGuid().ToString()
+
 let initPost () =
-    { id = (Guid.NewGuid()).ToString()
+    { id = guidString ()
       title = String.Empty
       content = String.Empty
       image = String.Empty
@@ -221,17 +223,27 @@ let buttonTemplate (text: string) color dispatch message =
         .Click(fun _ -> dispatch message)
         .Elt()
 
+let safetyButtonTemplate (text: string) color dispatch message =
+    Main
+        .SafetyButton()
+        .Text(text)
+        .Uid("Button-" + guidString ())
+        .Color(parseColor color)
+        .Click(fun _ -> dispatch message)
+        .Elt()
+
+let imgOrDefault post =
+    if (post.image.Length > 0) then
+        "data:image/jpeg;base64," + post.image
+    else
+        "icon.png"
+
 let postTemplate post condensed dispatch =
     Main
         .PostContainer()
         .Title(post.title)
         .Date(post.created.ToShortDateString())
-        .ImageSrc(
-            if (post.image.Length > 0) then
-                "data:image/jpeg;base64," + post.image
-            else
-                "icon.png"
-        )
+        .ImageSrc(imgOrDefault post)
         .Content(
             cond condensed
             <| function
@@ -246,8 +258,9 @@ let formTemplate post dispatch =
         .FormContainer()
         .Image(
             concat {
-                let elId = "ImgInput"
+                let elId = "ImgInput-" + guidString ()
                 Main.ImgUploadLabel().For(elId).Elt()
+
                 comp<InputFile> {
                     attr.id elId
                     attr.style "display: none"
@@ -255,6 +268,7 @@ let formTemplate post dispatch =
                 }
             }
         )
+        .ImagePreview(imgOrDefault post)
         .Title(
             Main
                 .Textbox()
@@ -290,14 +304,11 @@ let view model dispatch =
         | true -> Main().Side(Main.LoadingContainer().Elt()).Elt()
         | false ->
             Main()
+                .Search(searchTemplate dispatch)
                 .Side(
-                    concat {
-                        searchTemplate dispatch
-
-                        match getSelectedPosts model with
-                        | xs when xs.Length > 0 -> forEach xs <| fun x -> postTemplate x true dispatch
-                        | _ -> Main.NoMatchesContainer().Elt()
-                    }
+                    match getSelectedPosts model with
+                    | xs when xs.Length > 0 -> forEach xs <| fun x -> postTemplate x true dispatch
+                    | _ -> Main.NoMatchesContainer().Elt()
                 )
                 .Panel(
                     cond model.page
@@ -309,8 +320,8 @@ let view model dispatch =
                                 .PanelContainer()
                                 .Tray(
                                     concat {
-                                        buttonTemplate "Discard" Gray dispatch (SetPage Home)
-                                        buttonTemplate "Publish" Primary dispatch (Save model.current.Value)
+                                        safetyButtonTemplate "Discard" Gray dispatch (SetPage Home)
+                                        safetyButtonTemplate "Publish" Primary dispatch (Save model.current.Value)
                                     }
                                 )
                                 .Content(formTemplate model.current.Value dispatch)

@@ -15,5 +15,7 @@
     <PackageReference Include="Bolero.Server" Version="0.*" />
     <PackageReference Include="Bolero.HotReload.Server" Version="0.*" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.*" />
+    <PackageReference Include="uplink.NET" Version="2.11.3221" />
+    <PackageReference Include="uplink.NET.Linux" Version="2.11.3221" />
   </ItemGroup>
 </Project>

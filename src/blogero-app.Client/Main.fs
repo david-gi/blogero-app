@@ -39,10 +39,16 @@ let initModel =
 
 type PostService =
     {
-        /// Get all post from storage
+        /// Get all demo post from json
+        getPostsDemo: unit -> Async<Post[]>
+
+        /// Commit a demo post to json
+        addPostDemo: Post -> Async<unit>
+
+        /// Get all post from Storj
         getPosts: unit -> Async<Post[]>
 
-        /// Commit a post to storage
+        /// Commit a post to Storj
         addPost: Post -> Async<unit>
     }
 
@@ -168,7 +174,7 @@ let update remote message model =
                 page = if model.page = Create then Create else page },
             Cmd.ofMsg (Search x)
 
-    | GetPosts -> model, Cmd.OfAsync.either remote.getPosts () GotPosts Error
+    | GetPosts -> model, Cmd.OfAsync.either remote.getPostsDemo () GotPosts Error
     | GotPosts posts -> { model with posts = posts }, Cmd.none
 
     | Search crit ->
@@ -192,7 +198,7 @@ let update remote message model =
             { model with
                 current = Some { model.current.Value with content = x } },
             Cmd.none
-    | Save post -> model, Cmd.OfAsync.either remote.addPost post (fun () -> Saved post) Error
+    | Save post -> model, Cmd.OfAsync.either remote.addPostDemo post (fun () -> Saved post) Error
     | Saved post ->
         { model with
             current = Some post

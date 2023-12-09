@@ -1,23 +1,20 @@
 <div>
   <div class="flex flex-row flex-wrap w-screen h-screen w-app-minimum place-content-center p-2
-            bg-gradient-to-t from-violet-700 dark:from-violet-900 from-65% to-blue-600 
+            bg-gradient-to-t from-violet-700 dark:from-violet-900 from-65% to-blue-600 bg-grain
             dark:to-blue-800 dark:brightness-90 transform-gpu">
 
     <div class="basis-full sm:basis-1/3 sm:grow max-w-screen-md h-full pr-2 z-0
-                overflow-y-scroll no-scrollbar snap-y scroll-smooth">
-
-      <div class="snap-start snap-always">
+                overflow-y-scroll no-scrollbar scroll-smooth">
+      <div class="mb-2">
         <h1 class="text-white pb-2 select-none">
           <span class="font-bold text-xl">Blogero</span>
-          <span class="text-md align-baseline">F# + Wasm + Immutable Blogging</span>
+          <span class="text-md align-baseline inline-block">F# + Wasm + Immutable Blogging</span>
         </h1>
         ${Search}
       </div>
-
-      <div class="last:rotate-6x">
+      <div>
         ${Side}
       </div>
-
     </div>
 
     ${Panel}
@@ -36,25 +33,29 @@
 
   <template id="PanelContainer">
     <div class="sm:basis-2/3 z-10
-              absolute top-0 right-0 left-0
-              sm:relative sm:right-auto sm:left-auto">
-      <div class="h-screen sm:h-[100%] dark:bg-gray-800 rounded-xl sm:rounded
-                border-8 border-blue-600 sm:border-0">
-        <div class="flex flex-row-reverse flex-wrap gap-2 clear-both bg-white
-                absolute bottom-0 right-0 p-2 pt-2 pl-2 m-2 sm:m-0 rounded dark:bg-gray-800">
+                absolute top-0 right-0 left-0
+                sm:relative sm:right-auto sm:left-auto ">
+      <div class="h-screen sm:h-[100%] rounded-xl sm:rounded bg-white
+                  dark:bg-gray-800 dark:text-white bg-grain
+                  border-8 border-blue-600 sm:border-0">
+
+        <div class="flex flex-row-reverse flex-wrap gap-2 clear-both 
+                    bg-white dark:bg-gray-800/60 bg-grain
+                    absolute bottom-0 right-0 p-2 pt-2 pl-2 m-2 sm:m-0 rounded">
           ${Tray}
         </div>
-        <div class="overflow-y-scroll overscroll-none no-scrollbar max-h-full">
+
+        <div class="overflow-y-scroll overscroll-none no-scrollbar">
           ${Content}
         </div>
+
       </div>
     </div>
   </template>
 
   <template id="PostContainer">
     <div
-      class="bg-white p-8 rounded cursor-pointer mt-2 dark:bg-gray-800/60 dark:text-white 
-            snap-start snap-always"
+      class="bg-white p-8 mb-2 last:mb-0 rounded cursor-pointer dark:bg-gray-800/60 dark:text-white bg-grain"
       onclick="${Open}"
     >
       <h1 class="text-xl font-bold">
@@ -74,7 +75,7 @@
   </template>
 
   <template id="FormContainer">
-    <div class="bg-white dark:bg-gray-800 dark:text-white p-8 rounded">
+    <div class="bg-white dark:bg-gray-800/60 dark:text-white p-8 rounded bg-grain">
       <h1 class="font-bold uppercase">
         New Post
       </h1>
@@ -92,7 +93,7 @@
   </template>
 
   <template id="LoadingContainer">
-    <div class="bg-white p-8 rounded mt-2 dark:bg-gray-800/60 dark:text-white">
+    <div class="bg-white p-8 rounded mt-2 dark:bg-gray-800/60 dark:text-white bg-grain">
       <h1 class="text-lg font-bold">
         Loading...
       </h1>
@@ -100,7 +101,7 @@
   </template>
 
   <template id="NoMatchesContainer">
-    <div class="bg-white p-8 rounded mt-2 dark:bg-gray-800/60 dark:text-white select-none">
+    <div class="bg-white p-8 rounded mt-2 dark:bg-gray-800/60 dark:text-white select-none bg-grain">
       <h1 class="text-lg font-bold">
         No matches...
       </h1>
@@ -110,7 +111,7 @@
   <template id="NotFoundContainer">
     <div class="p-8">
       <img src="icon.png">
-      <h1 class="font-bold text-xl text-gray-800 dark:text-white mt-2 select-none">
+      <h1 class="font-bold text-xl text-gray-800 dark:text-white mt-2 select-none bg-grain">
         Post not found.
       </h1>
     </div>
@@ -118,7 +119,7 @@
 
   <template id="NotificationContainer">
     <div
-      class="w-screen text-white bg-${Color}-500 p-4 select-none
+      class="w-screen text-white bg-${Color}-500 p-4 select-none bg-grain
              after:content-['⤫'] after:float-right cursor-pointer"
       onclick="${Hide}"
     >
@@ -175,7 +176,7 @@
   <template id="Textbox">
     <input
       type="text"
-      class="p-2 border w-full rounded focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:border-violet-700"
+      class="p-2 border w-full rounded focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:border-violet-700 bg-grain"
       placeholder="${Placeholder}"
       bind="${Text}"
     >
@@ -184,7 +185,7 @@
   <template id="Textarea">
     <textarea
       rows="12"
-      class="p-2 border w-full rounded focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:border-violet-700"
+      class="p-2 border w-full rounded focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:border-violet-700 bg-grain"
       placeholder="${Placeholder}"
       bind-onchange="${Text}"
     ></textarea>

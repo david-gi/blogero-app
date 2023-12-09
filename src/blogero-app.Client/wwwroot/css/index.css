@@ -3,6 +3,13 @@
   min-width: 280px;
 }
 
+.bg-grain {
+  background-image: url("grain.svg");
+  background-repeat: repeat;
+  background-attachment:  local;
+  background-blend-mode: multiply;
+}
+
 /* For Webkit-based browsers (Chrome, Safari and Opera) */
 .no-scrollbar::-webkit-scrollbar {
   display: none;

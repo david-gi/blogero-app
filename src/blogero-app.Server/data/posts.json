@@ -1,1 +1,23 @@
-[{"id":"b0ed078e-a493-4356-9cf4-d9a37443455a","title":"Love Your Codebase","content":"F# is like an antiphlogistic for the mind. Anf if you\u0027ll forgive my Haiku: | Arctic blue for months | A vivid, crystal aurora scintillates | hygge from F#","image":"","created":"2023-12-09T00:00:00"},{"id":"b4629994-f21e-4ea8-a918-b1717f5192ee","title":"Holy Bolero!","content":"Develop SPAs with the full power of F# and .NET. Full-stack web development sanity, Look Ma, no JS! Think of the children.","image":"","created":"2023-12-11T00:00:00"},{"id":"e9664cc5-847f-4885-8d9c-db936c46d06b","title":"Pleasant Dev Experience","content":"I enjoyed every part of it, as did I Websharper. Blazor and .NET liberated by F#. Elegant simple routing. Never used Elm but love the Elmish flow. Wonderful separation of design \u0026 layout with HTML Templates.","image":"","created":"2023-12-12T00:00:00"},{"id":"7fcb9a57-6e78-47ca-a7dd-85f892b16ed2","title":"","content":"","image":"","created":"2023-12-06T10:55:12.402Z"},{"id":"f8797029-fda3-44ec-9dde-7d4b21a78160","title":"","content":"","image":"","created":"2023-12-06T11:15:13.855Z"},{"id":"77bf2280-3309-4044-8521-901fb51b3617","title":"","content":"","image":"","created":"2023-12-06T12:08:41.096Z"},{"id":"0603010a-d00d-4a60-a416-24528229dc35","title":"","content":"","image":"","created":"2023-12-06T12:11:29.91Z"},{"id":"bf50491e-b191-46ba-be2e-20a5e1b559f0","title":"","content":"","image":"","created":"2023-12-06T12:20:08.716Z"},{"id":"935b08fb-859a-45e9-908a-b74a4d8bd5d0","title":"","content":"","image":"","created":"2023-12-06T13:13:51.971Z"},{"id":"dafc17ed-ee75-491c-a2d2-3460ef65cc03","title":"","content":"","image":"","created":"2023-12-06T13:18:12.818Z"}]
+[
+  {
+    "id": "b0ed078e-a493-4356-9cf4-d9a37443455a",
+    "title": "Love Your Codebase",
+    "content": "F# is like an antiphlogistic for the mind. Anf if you\u0027ll forgive my Haiku: | Arctic blue for months | A vivid, crystal aurora scintillates | hygge from F#",
+    "image": "",
+    "created": "2023-12-09T00:00:00"
+  },
+  {
+    "id": "b4629994-f21e-4ea8-a918-b1717f5192ee",
+    "title": "Holy Bolero!",
+    "content": "Develop SPAs with the full power of F# and .NET. Full-stack web development sanity, Look Ma, no JS! Think of the children.",
+    "image": "",
+    "created": "2023-12-11T00:00:00"
+  },
+  {
+    "id": "e9664cc5-847f-4885-8d9c-db936c46d06b",
+    "title": "Pleasant Dev Experience",
+    "content": "I enjoyed every part of it, as did I Websharper. Blazor and .NET liberated by F#. Elegant simple routing. Never used Elm but love the Elmish flow. Wonderful separation of design \u0026 layout with HTML Templates.",
+    "image": "",
+    "created": "2023-12-12T00:00:00"
+  }
+]
